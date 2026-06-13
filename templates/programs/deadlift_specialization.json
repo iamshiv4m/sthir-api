@@ -1,0 +1,25 @@
+{
+  "id": "deadlift_specialization",
+  "name": "Deadlift Specialization 8-Week",
+  "goal": "improve_deadlift",
+  "durationWeeks": 8,
+  "daysPerWeek": 4,
+  "federationTags": ["ipf_pi", "wrpf", "other"],
+  "primaryLift": "deadlift",
+  "weekTemplate": [
+    { "day": 1, "focus": "Deadlift heavy", "exercises": [
+      { "name": "Deadlift", "sets": 5, "reps": "2", "intensityPct": 85, "liftKey": "deadlift", "rpe": "8.5" },
+      { "name": "Paused Deadlift", "sets": 3, "reps": "3", "intensityPct": 72, "liftKey": "deadlift", "rpe": "7" }
+    ]},
+    { "day": 2, "focus": "Squat maintenance", "exercises": [
+      { "name": "Squat", "sets": 3, "reps": "5", "intensityPct": 72, "liftKey": "squat", "rpe": "7" }
+    ]},
+    { "day": 3, "focus": "Deadlift volume", "exercises": [
+      { "name": "Deadlift", "sets": 4, "reps": "4", "intensityPct": 78, "liftKey": "deadlift", "rpe": "8" },
+      { "name": "Deficit Deadlift", "sets": 3, "reps": "4", "intensityPct": 68, "liftKey": "deadlift", "rpe": "7" }
+    ]},
+    { "day": 4, "focus": "Bench maintenance", "exercises": [
+      { "name": "Bench Press", "sets": 3, "reps": "5", "intensityPct": 72, "liftKey": "bench", "rpe": "7" }
+    ]}
+  ]
+}

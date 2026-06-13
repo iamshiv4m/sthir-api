@@ -1,0 +1,38 @@
+{
+  "id": "first_meet_12wk",
+  "name": "First Meet 12-Week Prep",
+  "goal": "first_meet",
+  "durationWeeks": 12,
+  "daysPerWeek": 4,
+  "federationTags": ["ipf_pi", "wrpf"],
+  "description": "Accumulation → deload → peaking for first-time competitors.",
+  "phases": [
+    { "name": "accumulation", "weeks": [1, 2, 3, 4], "volumeMultiplier": 1.0 },
+    { "name": "deload", "weeks": [5], "volumeMultiplier": 0.6 },
+    { "name": "intensification", "weeks": [6, 7, 8, 9], "volumeMultiplier": 0.85 },
+    { "name": "peaking", "weeks": [10, 11, 12], "volumeMultiplier": 0.65 }
+  ],
+  "weekTemplate": [
+    { "day": 1, "focus": "Squat volume", "exercises": [
+      { "name": "Squat", "sets": 4, "reps": "6", "intensityPct": 72, "rpe": "7" },
+      { "name": "Pause Squat", "sets": 3, "reps": "4", "intensityPct": 65, "rpe": "7" },
+      { "name": "Leg Press", "sets": 3, "reps": "10", "intensityPct": 60, "rpe": "7" }
+    ]},
+    { "day": 2, "focus": "Bench volume", "exercises": [
+      { "name": "Bench Press", "sets": 5, "reps": "5", "intensityPct": 72, "rpe": "7" },
+      { "name": "Close-Grip Bench", "sets": 3, "reps": "6", "intensityPct": 65, "rpe": "7" },
+      { "name": "Tricep Pushdown", "sets": 3, "reps": "12", "intensityPct": 55, "rpe": "7" }
+    ]},
+    { "day": 3, "focus": "Deadlift", "exercises": [
+      { "name": "Deadlift", "sets": 4, "reps": "5", "intensityPct": 72, "rpe": "7" },
+      { "name": "Paused Deadlift", "sets": 3, "reps": "3", "intensityPct": 65, "rpe": "7" },
+      { "name": "Barbell Row", "sets": 3, "reps": "8", "intensityPct": 60, "rpe": "7" }
+    ]},
+    { "day": 4, "focus": "Accessories", "exercises": [
+      { "name": "Bench Press", "sets": 3, "reps": "8", "intensityPct": 65, "rpe": "6" },
+      { "name": "Front Squat", "sets": 3, "reps": "5", "intensityPct": 60, "rpe": "7" },
+      { "name": "Face Pull", "sets": 3, "reps": "15", "intensityPct": 50, "rpe": "7" }
+    ]}
+  ],
+  "meetDayNotes": "Openers at 90/93/90% of gym max. Seconds at +2.5–5kg if smooth."
+}

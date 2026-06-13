@@ -1,0 +1,27 @@
+{
+  "id": "beginner_linear",
+  "name": "Beginner Linear Progression",
+  "goal": "general_strength",
+  "durationWeeks": 8,
+  "daysPerWeek": 3,
+  "federationTags": ["ipf_pi", "wrpf", "other"],
+  "description": "Full-body linear progression for lifters under 1 year experience.",
+  "weekTemplate": [
+    { "day": 1, "focus": "Squat + Bench", "exercises": [
+      { "name": "Squat", "sets": 3, "reps": "5", "intensityPct": 75, "rpe": "7" },
+      { "name": "Bench Press", "sets": 3, "reps": "5", "intensityPct": 75, "rpe": "7" },
+      { "name": "Barbell Row", "sets": 3, "reps": "8", "intensityPct": 65, "rpe": "7" }
+    ]},
+    { "day": 2, "focus": "Deadlift + OHP", "exercises": [
+      { "name": "Deadlift", "sets": 3, "reps": "5", "intensityPct": 75, "rpe": "7" },
+      { "name": "Overhead Press", "sets": 3, "reps": "5", "intensityPct": 70, "rpe": "7" },
+      { "name": "Lat Pulldown", "sets": 3, "reps": "10", "intensityPct": 60, "rpe": "7" }
+    ]},
+    { "day": 3, "focus": "Full SBD light", "exercises": [
+      { "name": "Squat", "sets": 3, "reps": "5", "intensityPct": 70, "rpe": "6" },
+      { "name": "Bench Press", "sets": 3, "reps": "5", "intensityPct": 70, "rpe": "6" },
+      { "name": "Deadlift", "sets": 1, "reps": "5", "intensityPct": 70, "rpe": "6" }
+    ]}
+  ],
+  "progression": { "type": "linear", "weeklyIncrementKg": 2.5 }
+}

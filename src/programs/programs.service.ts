@@ -1,0 +1,132 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { promises as fs } from 'fs';
+import path from 'path';
+import { Response } from 'express';
+import { DatabaseService } from '../database/database.service';
+import { exportProgramCsv } from '../domain/sheet-export';
+import { generateProgramPdf } from '../domain/pdf';
+
+@Injectable()
+export class ProgramsService {
+  constructor(
+    private readonly db: DatabaseService,
+    private readonly config: ConfigService,
+  ) {}
+
+  private apiBase() {
+    return (this.config.get<string>('API_PUBLIC_URL') ?? 'http://localhost:4000').replace(/\/$/, '');
+  }
+
+  async getProgram(id: string) {
+    const db = await this.db.readDb();
+    const program = db.programs.find((p) => p.id === id);
+    if (!program) throw new NotFoundException('Not found');
+    const intake = db.intakes.find((i) => i.id === program.intakeId);
+    return { program, intake };
+  }
+
+  async downloadCsv(id: string, res: Response) {
+    const db = await this.db.readDb();
+    const program = db.programs.find((p) => p.id === id);
+    if (!program) throw new NotFoundException('Not found');
+
+    const csvPath = path.join(
+      process.cwd(),
+      'data',
+      'exports',
+      `program_${program.intakeId.slice(0, 8)}.csv`,
+    );
+
+    try {
+      const content = await fs.readFile(csvPath, 'utf-8');
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename="sthir_program.csv"');
+      res.send(content);
+    } catch {
+      throw new NotFoundException('Export not ready');
+    }
+  }
+
+  async reviewProgram(
+    intakeId: string,
+    body: {
+      action: 'approve' | 'deliver' | 'reject';
+      coachNotes?: string;
+      reviewerId?: string;
+    },
+  ) {
+    const { action, coachNotes, reviewerId = 'founder' } = body;
+    const db = await this.db.readDb();
+    const intake = db.intakes.find((i) => i.id === intakeId);
+    if (!intake) throw new NotFoundException('Intake not found');
+
+    const program = db.programs.find((p) => p.intakeId === intakeId);
+    if (!program) throw new NotFoundException('Program not found');
+
+    let result: Record<string, unknown> = {};
+
+    if (action === 'approve') {
+      if (coachNotes) program.coachNotes = coachNotes;
+      program.reviewerId = reviewerId;
+      program.reviewedAt = new Date().toISOString();
+      intake.status = 'approved';
+      intake.updatedAt = new Date().toISOString();
+      result = { status: 'approved' };
+    }
+
+    if (action === 'deliver') {
+      const csvPath = await exportProgramCsv(program, intake.answers);
+      const pdfPath = await generateProgramPdf(program, intake.answers);
+      program.pdfPath = pdfPath;
+      program.sheetUrl = `${this.apiBase()}/api/v1/programs/${program.id}/csv`;
+      program.deliveredAt = new Date().toISOString();
+      intake.status = 'delivered';
+      intake.updatedAt = new Date().toISOString();
+      result = {
+        status: 'delivered',
+        csvPath,
+        pdfPath,
+        sheetUrl: program.sheetUrl,
+      };
+    }
+
+    if (action === 'reject') {
+      intake.status = 'rejected';
+      intake.updatedAt = new Date().toISOString();
+      result = { status: 'rejected' };
+    }
+
+    await this.db.writeDb(db);
+    await this.db.auditLog('program', intakeId, action, reviewerId);
+    return result;
+  }
+
+  async getQueue() {
+    const db = await this.db.readDb();
+    const now = Date.now();
+
+    const queue = db.intakes
+      .filter((i) => ['paid', 'pending_review', 'approved'].includes(i.status))
+      .map((intake) => {
+        const program = db.programs.find((p) => p.intakeId === intake.id);
+        const slaMs = new Date(intake.slaDeadline).getTime() - now;
+        return {
+          ...intake,
+          program,
+          slaHoursRemaining: Math.max(0, slaMs / (1000 * 60 * 60)),
+          urgent: slaMs < 4 * 60 * 60 * 1000,
+        };
+      })
+      .sort((a, b) => a.slaHoursRemaining - b.slaHoursRemaining);
+
+    return {
+      queue,
+      stats: {
+        pendingReview: queue.filter((q) => q.status === 'pending_review').length,
+        delivered: db.intakes.filter((i) => i.status === 'delivered').length,
+        waitlist: db.waitlist.length,
+      },
+    };
+  }
+}

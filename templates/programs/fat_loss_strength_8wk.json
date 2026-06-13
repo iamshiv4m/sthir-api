@@ -1,0 +1,29 @@
+{
+  "id": "fat_loss_strength_8wk",
+  "name": "Fat Loss + Strength Maintenance 8-Week",
+  "goal": "fat_loss_strength",
+  "durationWeeks": 8,
+  "daysPerWeek": 4,
+  "federationTags": ["ipf_pi", "wrpf", "other"],
+  "description": "Maintain SBD intensity while managing volume for recomp.",
+  "weekTemplate": [
+    { "day": 1, "focus": "Squat maintenance", "exercises": [
+      { "name": "Squat", "sets": 3, "reps": "3", "intensityPct": 80, "rpe": "8" },
+      { "name": "Walking Lunge", "sets": 3, "reps": "12", "intensityPct": 40, "rpe": "7" }
+    ]},
+    { "day": 2, "focus": "Bench maintenance", "exercises": [
+      { "name": "Bench Press", "sets": 3, "reps": "3", "intensityPct": 80, "rpe": "8" },
+      { "name": "Cable Fly", "sets": 3, "reps": "12", "intensityPct": 45, "rpe": "7" }
+    ]},
+    { "day": 3, "focus": "Deadlift maintenance", "exercises": [
+      { "name": "Deadlift", "sets": 3, "reps": "2", "intensityPct": 82, "rpe": "8" },
+      { "name": "Back Extension", "sets": 3, "reps": "12", "intensityPct": 45, "rpe": "7" }
+    ]},
+    { "day": 4, "focus": "Conditioning + accessories", "exercises": [
+      { "name": "Goblet Squat", "sets": 3, "reps": "12", "intensityPct": 50, "rpe": "7" },
+      { "name": "Push-ups", "sets": 3, "reps": "AMRAP", "intensityPct": 0, "rpe": "7" },
+      { "name": "Farmer Carry", "sets": 3, "reps": "40m", "intensityPct": 50, "rpe": "7" }
+    ]}
+  ],
+  "nutritionNote": "Maintain protein 1.8–2.2g/kg. Moderate deficit 300–500 kcal only."
+}

@@ -1,0 +1,32 @@
+{
+  "id": "intermediate_block",
+  "name": "Intermediate 9-Week Block",
+  "goal": "increase_total",
+  "durationWeeks": 9,
+  "daysPerWeek": 4,
+  "federationTags": ["ipf_pi", "wrpf", "other"],
+  "description": "RPE/% hybrid block inspired by TSA-style periodization.",
+  "weekTemplate": [
+    { "day": 1, "focus": "Squat heavy", "exercises": [
+      { "name": "Squat", "sets": 4, "reps": "4", "intensityPct": 80, "rpe": "8" },
+      { "name": "Squat", "sets": 2, "reps": "6", "intensityPct": 72, "rpe": "7" },
+      { "name": "Leg Curl", "sets": 3, "reps": "10", "intensityPct": 55, "rpe": "7" }
+    ]},
+    { "day": 2, "focus": "Bench frequency", "exercises": [
+      { "name": "Bench Press", "sets": 5, "reps": "4", "intensityPct": 78, "rpe": "8" },
+      { "name": "Spoto Press", "sets": 3, "reps": "5", "intensityPct": 70, "rpe": "7" },
+      { "name": "DB Incline", "sets": 3, "reps": "10", "intensityPct": 55, "rpe": "7" }
+    ]},
+    { "day": 3, "focus": "Deadlift", "exercises": [
+      { "name": "Deadlift", "sets": 4, "reps": "3", "intensityPct": 82, "rpe": "8" },
+      { "name": "Deficit Deadlift", "sets": 3, "reps": "4", "intensityPct": 70, "rpe": "7" },
+      { "name": "Back Extension", "sets": 3, "reps": "12", "intensityPct": 50, "rpe": "7" }
+    ]},
+    { "day": 4, "focus": "Bench volume", "exercises": [
+      { "name": "Bench Press", "sets": 4, "reps": "6", "intensityPct": 72, "rpe": "7" },
+      { "name": "Paused Bench", "sets": 3, "reps": "4", "intensityPct": 68, "rpe": "7" },
+      { "name": "Lateral Raise", "sets": 3, "reps": "15", "intensityPct": 45, "rpe": "7" }
+    ]}
+  ],
+  "deloadWeek": 5
+}

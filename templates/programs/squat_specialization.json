@@ -1,0 +1,25 @@
+{
+  "id": "squat_specialization",
+  "name": "Squat Specialization 8-Week",
+  "goal": "improve_squat",
+  "durationWeeks": 8,
+  "daysPerWeek": 4,
+  "federationTags": ["ipf_pi", "wrpf", "other"],
+  "primaryLift": "squat",
+  "weekTemplate": [
+    { "day": 1, "focus": "Squat heavy", "exercises": [
+      { "name": "Squat", "sets": 5, "reps": "3", "intensityPct": 82, "liftKey": "squat", "rpe": "8" },
+      { "name": "Pause Squat", "sets": 4, "reps": "3", "intensityPct": 72, "liftKey": "squat", "rpe": "7" }
+    ]},
+    { "day": 2, "focus": "Bench maintenance", "exercises": [
+      { "name": "Bench Press", "sets": 3, "reps": "5", "intensityPct": 72, "liftKey": "bench", "rpe": "7" }
+    ]},
+    { "day": 3, "focus": "Squat volume", "exercises": [
+      { "name": "Squat", "sets": 4, "reps": "6", "intensityPct": 75, "liftKey": "squat", "rpe": "7" },
+      { "name": "Leg Press", "sets": 3, "reps": "10", "intensityPct": 60, "rpe": "7" }
+    ]},
+    { "day": 4, "focus": "Deadlift maintenance", "exercises": [
+      { "name": "Deadlift", "sets": 3, "reps": "3", "intensityPct": 75, "liftKey": "deadlift", "rpe": "7" }
+    ]}
+  ]
+}

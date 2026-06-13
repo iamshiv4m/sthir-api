@@ -1,0 +1,90 @@
+{
+  "id": "bench_specialization",
+  "name": "Bench Specialization 8-Week",
+  "goal": "improve_bench",
+  "durationWeeks": 8,
+  "daysPerWeek": 4,
+  "federationTags": ["ipf_pi", "wrpf", "other"],
+  "primaryLift": "bench",
+  "weekTemplate": [
+    {
+      "day": 1,
+      "focus": "Bench heavy",
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": 6,
+          "reps": "3",
+          "intensityPct": 82,
+          "liftKey": "bench",
+          "rpe": "8"
+        },
+        {
+          "name": "Spoto Press",
+          "sets": 3,
+          "reps": "4",
+          "intensityPct": 72,
+          "liftKey": "bench",
+          "rpe": "7"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "focus": "Bench volume",
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": 4,
+          "reps": "6",
+          "intensityPct": 72,
+          "liftKey": "bench",
+          "rpe": "7"
+        },
+        {
+          "name": "Close-Grip Bench",
+          "sets": 3,
+          "reps": "6",
+          "intensityPct": 68,
+          "liftKey": "bench",
+          "rpe": "7"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "focus": "Squat maintenance",
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 72,
+          "liftKey": "squat",
+          "rpe": "7"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "focus": "Bench technique",
+      "exercises": [
+        {
+          "name": "Paused Bench",
+          "sets": 4,
+          "reps": "4",
+          "intensityPct": 70,
+          "liftKey": "bench",
+          "rpe": "7"
+        },
+        {
+          "name": "Tricep Extension",
+          "sets": 3,
+          "reps": "12",
+          "intensityPct": 50,
+          "rpe": "7"
+        }
+      ]
+    }
+  ]
+}

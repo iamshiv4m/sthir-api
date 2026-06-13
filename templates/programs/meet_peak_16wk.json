@@ -1,0 +1,29 @@
+{
+  "id": "meet_peak_16wk",
+  "name": "16-Week Meet Peak",
+  "goal": "increase_total",
+  "durationWeeks": 16,
+  "daysPerWeek": 4,
+  "federationTags": ["ipf_pi", "wrpf"],
+  "description": "Full macrocycle for experienced lifters peaking into a meet.",
+  "weekTemplate": [
+    { "day": 1, "focus": "Squat", "exercises": [
+      { "name": "Squat", "sets": 5, "reps": "3", "intensityPct": 82, "rpe": "8" },
+      { "name": "Pause Squat", "sets": 3, "reps": "3", "intensityPct": 75, "rpe": "8" }
+    ]},
+    { "day": 2, "focus": "Bench", "exercises": [
+      { "name": "Bench Press", "sets": 6, "reps": "3", "intensityPct": 80, "rpe": "8" },
+      { "name": "Close-Grip Bench", "sets": 3, "reps": "5", "intensityPct": 72, "rpe": "7" }
+    ]},
+    { "day": 3, "focus": "Deadlift", "exercises": [
+      { "name": "Deadlift", "sets": 4, "reps": "2", "intensityPct": 85, "rpe": "8.5" },
+      { "name": "Block Pull", "sets": 3, "reps": "3", "intensityPct": 78, "rpe": "8" }
+    ]},
+    { "day": 4, "focus": "Accessories", "exercises": [
+      { "name": "Bench Press", "sets": 3, "reps": "6", "intensityPct": 70, "rpe": "7" },
+      { "name": "Front Squat", "sets": 3, "reps": "4", "intensityPct": 68, "rpe": "7" }
+    ]}
+  ],
+  "peakWeeks": [14, 15, 16],
+  "attemptGuide": true
+}

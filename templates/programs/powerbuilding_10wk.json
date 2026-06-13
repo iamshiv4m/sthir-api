@@ -1,0 +1,35 @@
+{
+  "id": "powerbuilding_10wk",
+  "name": "Powerbuilding 10-Week",
+  "goal": "powerbuilding",
+  "durationWeeks": 10,
+  "daysPerWeek": 5,
+  "federationTags": ["ipf_pi", "wrpf", "other"],
+  "description": "Strength primary with hypertrophy accessories.",
+  "weekTemplate": [
+    { "day": 1, "focus": "Lower strength", "exercises": [
+      { "name": "Squat", "sets": 4, "reps": "4", "intensityPct": 78, "rpe": "8" },
+      { "name": "Romanian Deadlift", "sets": 3, "reps": "8", "intensityPct": 65, "rpe": "7" },
+      { "name": "Leg Extension", "sets": 3, "reps": "12", "intensityPct": 55, "rpe": "7" }
+    ]},
+    { "day": 2, "focus": "Upper strength", "exercises": [
+      { "name": "Bench Press", "sets": 4, "reps": "4", "intensityPct": 78, "rpe": "8" },
+      { "name": "Barbell Row", "sets": 4, "reps": "6", "intensityPct": 70, "rpe": "7" },
+      { "name": "DB Curl", "sets": 3, "reps": "12", "intensityPct": 50, "rpe": "7" }
+    ]},
+    { "day": 3, "focus": "Deadlift", "exercises": [
+      { "name": "Deadlift", "sets": 4, "reps": "3", "intensityPct": 80, "rpe": "8" },
+      { "name": "Hip Thrust", "sets": 3, "reps": "10", "intensityPct": 60, "rpe": "7" }
+    ]},
+    { "day": 4, "focus": "Upper hypertrophy", "exercises": [
+      { "name": "Incline DB Press", "sets": 4, "reps": "10", "intensityPct": 55, "rpe": "7" },
+      { "name": "Lat Pulldown", "sets": 4, "reps": "10", "intensityPct": 55, "rpe": "7" },
+      { "name": "Lateral Raise", "sets": 3, "reps": "15", "intensityPct": 45, "rpe": "7" }
+    ]},
+    { "day": 5, "focus": "Lower hypertrophy", "exercises": [
+      { "name": "Front Squat", "sets": 3, "reps": "6", "intensityPct": 68, "rpe": "7" },
+      { "name": "Leg Press", "sets": 4, "reps": "12", "intensityPct": 60, "rpe": "7" },
+      { "name": "Calf Raise", "sets": 3, "reps": "15", "intensityPct": 45, "rpe": "7" }
+    ]}
+  ]
+}
