@@ -6,6 +6,15 @@ Backend API for **Sthir**. Frontend: `../sthir` (Next.js + shadcn).
 
 Intake → Razorpay → program engine → coach review (admin API) → CSV/PDF export.
 
+## Git
+
+All commits: **Shivam Jha** `<shivamjha190@gmail.com>`. Set locally:
+
+```bash
+git config user.name "Shivam Jha"
+git config user.email "shivamjha190@gmail.com"
+```
+
 ## Stack
 
 - **NestJS 11** — modules under `src/`
