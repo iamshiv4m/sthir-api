@@ -39,8 +39,8 @@ DATABASE_URL="postgresql://..." pnpm seed
 |---------|-------|
 | Runtime | Node |
 | Region | Singapore |
-| Build | `corepack enable && pnpm install && pnpm build` |
-| Start | `pnpm start:prod` |
+| Build | `npm install -g pnpm@9 && pnpm install --frozen-lockfile && pnpm build` |
+| Start | `node dist/main.js` |
 | Health check | `/api/v1/health` |
 
 ---

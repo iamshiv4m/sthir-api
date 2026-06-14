@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Sthir backend API — NestJS",
   "engines": {
-    "node": ">=20"
+    "node": "22.x"
   },
   "author": "",
   "private": true,

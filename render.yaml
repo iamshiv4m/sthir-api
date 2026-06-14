@@ -7,8 +7,8 @@ services:
     runtime: node
     region: singapore
     plan: starter
-    buildCommand: corepack enable && pnpm install && pnpm build
-    startCommand: pnpm start:prod
+    buildCommand: npm install -g pnpm@9 && pnpm install --frozen-lockfile && pnpm build
+    startCommand: node dist/main.js
     healthCheckPath: /api/v1/health
     envVars:
       - key: NODE_ENV
