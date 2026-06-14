@@ -4,6 +4,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { Response } from 'express';
 import { DatabaseService } from '../database/database.service';
+import { countCohortIntakes, isFoundingFree } from '../domain/founding';
 import { exportProgramCsv } from '../domain/sheet-export';
 import { generateProgramPdf } from '../domain/pdf';
 
@@ -31,6 +32,16 @@ export class ProgramsService {
     const program = db.programs.find((p) => p.id === id);
     if (!program) throw new NotFoundException('Not found');
 
+    if (program.csvExport) {
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader(
+        'Content-Disposition',
+        'attachment; filename="sthir_program.csv"',
+      );
+      res.send(program.csvExport);
+      return;
+    }
+
     const csvPath = path.join(
       process.cwd(),
       'data',
@@ -41,7 +52,10 @@ export class ProgramsService {
     try {
       const content = await fs.readFile(csvPath, 'utf-8');
       res.setHeader('Content-Type', 'text/csv');
-      res.setHeader('Content-Disposition', 'attachment; filename="sthir_program.csv"');
+      res.setHeader(
+        'Content-Disposition',
+        'attachment; filename="sthir_program.csv"',
+      );
       res.send(content);
     } catch {
       throw new NotFoundException('Export not ready');
@@ -76,8 +90,12 @@ export class ProgramsService {
     }
 
     if (action === 'deliver') {
-      const csvPath = await exportProgramCsv(program, intake.answers);
+      const { filepath, content } = await exportProgramCsv(
+        program,
+        intake.answers,
+      );
       const pdfPath = await generateProgramPdf(program, intake.answers);
+      program.csvExport = content;
       program.pdfPath = pdfPath;
       program.sheetUrl = `${this.apiBase()}/api/v1/programs/${program.id}/csv`;
       program.deliveredAt = new Date().toISOString();
@@ -85,7 +103,7 @@ export class ProgramsService {
       intake.updatedAt = new Date().toISOString();
       result = {
         status: 'delivered',
-        csvPath,
+        csvPath: filepath,
         pdfPath,
         sheetUrl: program.sheetUrl,
       };
@@ -126,6 +144,7 @@ export class ProgramsService {
         pendingReview: queue.filter((q) => q.status === 'pending_review').length,
         delivered: db.intakes.filter((i) => i.status === 'delivered').length,
         waitlist: db.waitlist.length,
+        cohortCount: isFoundingFree() ? countCohortIntakes(db.intakes) : null,
       },
     };
   }

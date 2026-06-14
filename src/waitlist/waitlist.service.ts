@@ -4,6 +4,7 @@ import { DatabaseService } from '../database/database.service';
 import { PRICING } from '../domain/constants';
 import { waitlistSchema } from '../domain/validations';
 import { createOrder } from '../domain/razorpay';
+import { FOUNDING_COHORT_SIZE } from '../domain/founding';
 
 @Injectable()
 export class WaitlistService {
@@ -19,11 +20,19 @@ export class WaitlistService {
     }
 
     const { email, name, goal, city, referralCode, payDeposit } = parsed.data;
-    const existing = (await this.db.readDb()).waitlist.find(
+    const db = await this.db.readDb();
+    const existing = db.waitlist.find(
       (w) => w.email.toLowerCase() === email.toLowerCase(),
     );
     if (existing) {
       throw new ConflictException({ error: 'Already on waitlist', id: existing.id });
+    }
+
+    if (db.waitlist.length >= FOUNDING_COHORT_SIZE) {
+      throw new ConflictException({
+        error: 'Waitlist full',
+        message: `All ${FOUNDING_COHORT_SIZE} waitlist spots are taken. Follow us on Instagram for the next cohort.`,
+      });
     }
 
     const id = this.db.newId();
@@ -67,9 +76,11 @@ export class WaitlistService {
 
   async stats() {
     const db = await this.db.readDb();
+    const count = db.waitlist.length;
     return {
-      count: db.waitlist.length,
-      target: 50,
+      count,
+      target: FOUNDING_COHORT_SIZE,
+      full: count >= FOUNDING_COHORT_SIZE,
       depositsPaid: db.waitlist.filter((w) => w.depositPaid).length,
     };
   }

@@ -78,6 +78,14 @@ export function selectTemplate(answers: IntakeAnswers): ProgramTemplate {
   return fallback ?? templates[0];
 }
 
+/** Founding free tier — always the 4-week block regardless of goal selection. */
+export function selectFoundingTemplate(answers: IntakeAnswers): ProgramTemplate {
+  const templates = loadAllTemplates();
+  const founding = templates.find((t) => t.id === "founding_4wk");
+  if (founding) return founding;
+  return selectTemplate(answers);
+}
+
 function getLiftMax(exercise: TemplateExercise, answers: IntakeAnswers): number {
   const key = exercise.liftKey ?? inferLiftKey(exercise.name);
   if (key === "squat") return answers.squat1rm;

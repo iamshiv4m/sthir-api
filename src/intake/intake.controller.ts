@@ -10,6 +10,11 @@ export class IntakeController {
     return this.intake.create(body);
   }
 
+  @Get('stats')
+  stats() {
+    return this.intake.stats();
+  }
+
   @Get()
   count() {
     return this.intake.count();

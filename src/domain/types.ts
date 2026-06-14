@@ -72,6 +72,7 @@ export type GeneratedProgram = {
   blocks: ProgramBlock[];
   sheetUrl?: string;
   pdfPath?: string;
+  csvExport?: string;
   version: number;
   reviewerId?: string;
   reviewedAt?: string;

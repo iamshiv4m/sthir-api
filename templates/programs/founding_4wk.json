@@ -1,0 +1,103 @@
+{
+  "id": "founding_4wk",
+  "name": "Founding 4-Week Block",
+  "goal": "general_strength",
+  "durationWeeks": 4,
+  "daysPerWeek": 3,
+  "federationTags": ["ipf_pi", "wrpf", "other"],
+  "description": "Intro coach-reviewed block for founding cohort — one month of structured SBD training.",
+  "weekTemplate": [
+    {
+      "day": 1,
+      "focus": "Squat + Bench",
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 75,
+          "rpe": "7",
+          "liftKey": "squat"
+        },
+        {
+          "name": "Bench Press",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 75,
+          "rpe": "7",
+          "liftKey": "bench"
+        },
+        {
+          "name": "Barbell Row",
+          "sets": 3,
+          "reps": "8",
+          "intensityPct": 65,
+          "rpe": "7"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "focus": "Deadlift + OHP",
+      "exercises": [
+        {
+          "name": "Deadlift",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 75,
+          "rpe": "7",
+          "liftKey": "deadlift"
+        },
+        {
+          "name": "Overhead Press",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 70,
+          "rpe": "7"
+        },
+        {
+          "name": "Lat Pulldown",
+          "sets": 3,
+          "reps": "10",
+          "intensityPct": 60,
+          "rpe": "7"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "focus": "Full SBD light",
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 70,
+          "rpe": "6",
+          "liftKey": "squat"
+        },
+        {
+          "name": "Bench Press",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 70,
+          "rpe": "6",
+          "liftKey": "bench"
+        },
+        {
+          "name": "Deadlift",
+          "sets": 1,
+          "reps": "5",
+          "intensityPct": 70,
+          "rpe": "6",
+          "liftKey": "deadlift"
+        }
+      ]
+    }
+  ],
+  "phases": [
+    { "name": "Accumulation", "weeks": [1, 2, 3], "volumeMultiplier": 1 },
+    { "name": "Deload", "weeks": [4], "volumeMultiplier": 0.85 }
+  ],
+  "deloadWeek": 4
+}

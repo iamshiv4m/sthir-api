@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Res } from '@nestjs/common';
+import { Controller, Get, Param, Res, UseGuards } from '@nestjs/common';
 import type { Response } from 'express';
+import { AdminGuard } from '../common/guards/admin.guard';
 import { ProgramsService } from './programs.service';
 
 @Controller('programs')
@@ -12,6 +13,7 @@ export class ProgramsController {
   }
 
   @Get(':id/csv')
+  @UseGuards(AdminGuard)
   async csv(@Param('id') id: string, @Res() res: Response) {
     await this.programs.downloadCsv(id, res);
   }

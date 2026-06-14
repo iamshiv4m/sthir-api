@@ -2,18 +2,15 @@ import { promises as fs } from "fs";
 import path from "path";
 import type { GeneratedProgram, IntakeAnswers } from "./types";
 
-export async function exportProgramCsv(
+export function buildProgramCsvContent(
   program: GeneratedProgram,
-  answers: IntakeAnswers
-): Promise<string> {
-  const dir = path.join(process.cwd(), "data", "exports");
-  await fs.mkdir(dir, { recursive: true });
-
+  answers: IntakeAnswers,
+): string {
   const header = "Week,Day,Exercise,Sets,Reps,Load,RPE,Notes\n";
   const rows = program.blocks
     .map(
       (b) =>
-        `${b.week},${b.day},"${b.exercise}",${b.sets},"${b.reps}","${b.load}","${b.rpe ?? ""}","${b.notes ?? ""}"`
+        `${b.week},${b.day},"${b.exercise}",${b.sets},"${b.reps}","${b.load}","${b.rpe ?? ""}","${b.notes ?? ""}"`,
     )
     .join("\n");
 
@@ -27,12 +24,22 @@ export async function exportProgramCsv(
     "",
   ].join("\n");
 
-  const content = meta + header + rows;
+  return meta + header + rows;
+}
+
+export async function exportProgramCsv(
+  program: GeneratedProgram,
+  answers: IntakeAnswers,
+): Promise<{ filepath: string; content: string }> {
+  const dir = path.join(process.cwd(), "data", "exports");
+  await fs.mkdir(dir, { recursive: true });
+
+  const content = buildProgramCsvContent(program, answers);
   const filename = `program_${program.intakeId.slice(0, 8)}.csv`;
   const filepath = path.join(dir, filename);
   await fs.writeFile(filepath, content, "utf-8");
 
-  return filepath;
+  return { filepath, content };
 }
 
 export function buildSheetInstructions(
