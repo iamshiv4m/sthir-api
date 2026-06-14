@@ -48,6 +48,8 @@ templates/programs/  JSON program templates
 
 Full index: [docs/README.md](docs/README.md)
 
+**Cursor skills:** [../.cursor/skills/sthir-platform/SKILL.md](../.cursor/skills/sthir-platform/SKILL.md) — platform context, founding rules, feature workflow
+
 ## Scripts
 
 ```bash
