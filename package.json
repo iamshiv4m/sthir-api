@@ -17,6 +17,8 @@
     "start:prod": "node dist/src/main.js",
     "seed": "tsx scripts/seed.ts",
     "test:engine": "vitest run src/domain/program-engine.test.ts",
+    "sync:skills": "node ../.cursor/scripts/sync-sthir-skills.mjs",
+    "sync:skills:check": "node ../.cursor/scripts/sync-sthir-skills.mjs --check",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
