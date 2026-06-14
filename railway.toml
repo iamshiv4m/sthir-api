@@ -2,6 +2,6 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "node dist/main.js"
+startCommand = "node dist/src/main.js"
 healthcheckPath = "/api/v1/health"
 restartPolicyType = "on_failure"

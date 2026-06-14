@@ -40,7 +40,7 @@ DATABASE_URL="postgresql://..." pnpm seed
 | Runtime | Node |
 | Region | Singapore |
 | Build | `npm install -g pnpm@9 && pnpm install --frozen-lockfile && pnpm build` |
-| Start | `node dist/main.js` |
+| Start | `node dist/src/main.js` |
 | Health check | `/api/v1/health` |
 
 ---
