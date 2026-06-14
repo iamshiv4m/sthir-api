@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { randomUUID } from 'crypto';
 import { addHours } from 'date-fns';
@@ -155,9 +152,7 @@ export class IntakeService {
       freeWeeks: FOUNDING_FREE_WEEKS,
       foundingPricePaise: 49900,
       delivered,
-      spotsRemaining: foundingFree
-        ? Math.max(0, FOUNDING_COHORT_SIZE - cohortCount)
-        : null,
+      spotsRemaining: Math.max(0, FOUNDING_COHORT_SIZE - cohortCount),
     };
   }
 
