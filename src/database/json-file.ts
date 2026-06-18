@@ -14,6 +14,7 @@ export const EMPTY_DB: Database = {
   gymPartners: [],
   concierge: [],
   auditLogs: [],
+  intakeDrafts: [],
 };
 
 async function ensureDataDir() {

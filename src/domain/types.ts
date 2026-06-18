@@ -144,9 +144,26 @@ export type ConciergeDelivery = {
   notes?: string;
 };
 
+export type IntakeDraft = {
+  id: string;
+  sessionId: string;
+  stepReached: number;
+  stepName: string;
+  answers: Record<string, unknown>;
+  utm?: {
+    utm_source?: string;
+    utm_medium?: string;
+    utm_campaign?: string;
+    ref?: string;
+  };
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type Database = {
   waitlist: WaitlistEntry[];
   intakes: IntakeSubmission[];
+  intakeDrafts: IntakeDraft[];
   programs: GeneratedProgram[];
   sessions: WorkoutSession[];
   prs: PersonalRecord[];

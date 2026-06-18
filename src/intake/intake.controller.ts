@@ -10,6 +10,11 @@ export class IntakeController {
     return this.intake.create(body);
   }
 
+  @Post('draft')
+  saveDraft(@Body() body: unknown) {
+    return this.intake.saveDraft(body);
+  }
+
   @Get('stats')
   stats() {
     return this.intake.stats();

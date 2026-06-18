@@ -23,7 +23,26 @@ import {
   validateLiftRatios,
 } from '../domain/program-engine';
 import { intakeSchema } from '../domain/validations';
+import { intakeDraftSchema } from '../domain/draft-validations';
 import type { IntakeAnswers } from '../domain/types';
+
+function normalizePhone(value?: string): string {
+  return (value ?? '').replace(/\D/g, '');
+}
+
+function isSubmittedContact(
+  db: Awaited<ReturnType<DatabaseService['readDb']>>,
+  email?: string,
+  phone?: string,
+): boolean {
+  const emailKey = email?.trim().toLowerCase();
+  const phoneKey = normalizePhone(phone);
+  return db.intakes.some((intake) => {
+    if (emailKey && intake.answers.email.toLowerCase() === emailKey) return true;
+    if (phoneKey && normalizePhone(intake.answers.phone) === phoneKey) return true;
+    return false;
+  });
+}
 
 @Injectable()
 export class IntakeService {
@@ -33,7 +52,11 @@ export class IntakeService {
   ) {}
 
   async create(body: unknown) {
-    const parsed = intakeSchema.safeParse(body);
+    const raw = (body ?? {}) as Record<string, unknown>;
+    const sessionId =
+      typeof raw.sessionId === 'string' ? raw.sessionId : undefined;
+    const { sessionId: _drop, ...intakeBody } = raw;
+    const parsed = intakeSchema.safeParse(intakeBody);
     if (!parsed.success) {
       throw new BadRequestException(parsed.error.flatten());
     }
@@ -74,6 +97,8 @@ export class IntakeService {
         const intake = db.intakes.find((i) => i.id === id);
         if (intake) intake.status = 'pending_review';
       }
+
+      this.removeMatchingDrafts(db, sessionId, answers.email, answers.phone);
     });
 
     await this.db.auditLog('intake', id, 'created', answers.email, {
@@ -112,6 +137,133 @@ export class IntakeService {
       };
     }
     return createOrder(amountPaise, receipt, notes);
+  }
+
+  async saveDraft(body: unknown) {
+    const parsed = intakeDraftSchema.safeParse(body);
+    if (!parsed.success) {
+      throw new BadRequestException(parsed.error.flatten());
+    }
+
+    const { sessionId, stepReached, stepName, answers, utm } = parsed.data;
+    const db = await this.db.readDb();
+
+    if (
+      isSubmittedContact(
+        db,
+        typeof answers.email === 'string' ? answers.email : undefined,
+        typeof answers.phone === 'string' ? answers.phone : undefined,
+      )
+    ) {
+      return { ok: true, skipped: true, reason: 'already_submitted' };
+    }
+
+    const now = new Date().toISOString();
+    let draftId = this.db.newId();
+
+    await this.db.updateDb((db) => {
+      if (!db.intakeDrafts) db.intakeDrafts = [];
+      const idx = db.intakeDrafts.findIndex((d) => d.sessionId === sessionId);
+      if (idx >= 0) {
+        draftId = db.intakeDrafts[idx].id;
+        db.intakeDrafts[idx] = {
+          ...db.intakeDrafts[idx],
+          stepReached: Math.max(db.intakeDrafts[idx].stepReached, stepReached),
+          stepName,
+          answers: { ...db.intakeDrafts[idx].answers, ...answers },
+          utm: utm ?? db.intakeDrafts[idx].utm,
+          updatedAt: now,
+        };
+      } else {
+        db.intakeDrafts.push({
+          id: draftId,
+          sessionId,
+          stepReached,
+          stepName,
+          answers,
+          utm,
+          createdAt: now,
+          updatedAt: now,
+        });
+      }
+    });
+
+    await this.db.auditLog('intake_draft', draftId, 'saved', sessionId, {
+      stepReached,
+      stepName,
+      hasPhone: !!answers.phone,
+      hasEmail: !!answers.email,
+    });
+
+    return { ok: true, id: draftId };
+  }
+
+  async getAbandonedLeads() {
+    const db = await this.db.readDb();
+    const drafts = db.intakeDrafts ?? [];
+
+    const leads = drafts
+      .filter(
+        (draft) =>
+          !isSubmittedContact(
+            db,
+            typeof draft.answers.email === 'string'
+              ? draft.answers.email
+              : undefined,
+            typeof draft.answers.phone === 'string'
+              ? draft.answers.phone
+              : undefined,
+          ),
+      )
+      .sort(
+        (a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+      )
+      .map((draft) => ({
+        id: draft.id,
+        name: String(draft.answers.name ?? '—'),
+        email: String(draft.answers.email ?? '—'),
+        phone: String(draft.answers.phone ?? '—'),
+        goal: String(draft.answers.goal ?? '—'),
+        stepReached: draft.stepReached,
+        stepName: draft.stepName,
+        updatedAt: draft.updatedAt,
+        utm: draft.utm,
+      }));
+
+    return {
+      count: leads.length,
+      leads,
+    };
+  }
+
+  private removeMatchingDrafts(
+    db: Awaited<ReturnType<DatabaseService['readDb']>>,
+    sessionId: string | undefined,
+    email: string,
+    phone?: string,
+  ) {
+    if (!db.intakeDrafts?.length) return;
+    const emailKey = email.trim().toLowerCase();
+    const phoneKey = normalizePhone(phone);
+    db.intakeDrafts = db.intakeDrafts.filter((draft) => {
+      if (sessionId && draft.sessionId === sessionId) return false;
+      if (
+        emailKey &&
+        typeof draft.answers.email === 'string' &&
+        draft.answers.email.trim().toLowerCase() === emailKey
+      ) {
+        return false;
+      }
+      if (
+        phoneKey &&
+        typeof draft.answers.phone === 'string' &&
+        normalizePhone(draft.answers.phone) === phoneKey
+      ) {
+        return false;
+      }
+      return true;
+    });
   }
 
   private attachDraftProgram(

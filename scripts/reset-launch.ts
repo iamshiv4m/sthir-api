@@ -21,6 +21,7 @@ async function main() {
   db.programs = [];
   db.sessions = [];
   db.prs = [];
+  db.intakeDrafts = [];
   db.auditLogs = [];
 
   await writeDb(db);

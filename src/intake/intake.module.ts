@@ -5,5 +5,6 @@ import { IntakeService } from './intake.service';
 @Module({
   controllers: [IntakeController],
   providers: [IntakeService],
+  exports: [IntakeService],
 })
 export class IntakeModule {}
