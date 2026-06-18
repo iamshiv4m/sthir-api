@@ -14,7 +14,11 @@ export const intakeSchema = z.object({
   secondaryGoal: z.string().optional(),
   email: z.string().email(),
   name: z.string().min(2),
-  phone: z.string().optional(),
+  phone: z
+    .string()
+    .min(10, 'WhatsApp number is required')
+    .max(15)
+    .regex(/^[\d+\s()-]+$/, 'Enter a valid phone number'),
   age: z.coerce.number().min(14).max(70),
   gender: z.string(),
   heightCm: z.coerce.number().min(120).max(230),
