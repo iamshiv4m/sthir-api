@@ -1,34 +1,46 @@
 import { z } from "zod";
 
 export const waitlistSchema = z.object({
-  email: z.string().email(),
-  name: z.string().min(2),
-  goal: z.string(),
-  city: z.string().optional(),
-  referralCode: z.string().optional(),
+  email: z.string().trim().email('Enter a valid email address'),
+  name: z.string().trim().min(2, 'Name is required'),
+  goal: z.string().min(1, 'Goal is required'),
+  city: z.string().trim().optional(),
+  referralCode: z.string().trim().optional(),
   payDeposit: z.boolean().optional(),
 });
 
 export const intakeSchema = z.object({
-  goal: z.string(),
+  goal: z.string().min(1),
   secondaryGoal: z.string().optional(),
-  email: z.string().email(),
-  name: z.string().min(2),
+  email: z.string().trim().email('Enter a valid email address'),
+  name: z.string().trim().min(2, 'Full name is required'),
   phone: z
     .string()
+    .trim()
     .min(10, 'WhatsApp number is required')
     .max(15)
-    .regex(/^[\d+\s()-]+$/, 'Enter a valid phone number'),
-  age: z.coerce.number().min(14).max(70),
+    .regex(/^[\d+\s()-]+$/, 'Enter a valid phone number')
+    .refine(
+      (value) => {
+        const digits = value.replace(/\D/g, '');
+        if (digits.length === 10) return /^[6-9]\d{9}$/.test(digits);
+        if (digits.length === 12 && digits.startsWith('91')) {
+          return /^91[6-9]\d{9}$/.test(digits);
+        }
+        return false;
+      },
+      { message: 'Enter a valid 10-digit Indian mobile number' },
+    ),
+  age: z.coerce.number().min(16).max(70),
   gender: z.string(),
   heightCm: z.coerce.number().min(120).max(230),
   bodyweightKg: z.coerce.number().min(40).max(200),
   weightClass: z.string().optional(),
   experience: z.string(),
   federation: z.string(),
-  squat1rm: z.coerce.number().min(20),
-  bench1rm: z.coerce.number().min(20),
-  deadlift1rm: z.coerce.number().min(20),
+  squat1rm: z.coerce.number().min(20).max(500),
+  bench1rm: z.coerce.number().min(20).max(350),
+  deadlift1rm: z.coerce.number().min(20).max(500),
   meetPrs: z
     .object({
       squat: z.coerce.number().optional(),
