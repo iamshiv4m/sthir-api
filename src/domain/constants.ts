@@ -5,6 +5,7 @@ export const GOALS = [
   { id: "improve_bench", label: "Improve Bench Press", description: "Bench-focused volume & intensity" },
   { id: "improve_deadlift", label: "Improve Deadlift", description: "Deadlift technique & strength block" },
   { id: "powerbuilding", label: "Powerbuilding", description: "Strength + hypertrophy hybrid" },
+  { id: "office_strength", label: "Office / 9-to-5 Strength", description: "3-day blocks around your desk job — before work or evening" },
   { id: "general_strength", label: "General Strength", description: "Balanced SBD progression" },
   { id: "fat_loss_strength", label: "Fat Loss + Maintain Strength", description: "Recomp while keeping main lifts" },
 ] as const;
@@ -27,6 +28,7 @@ export const EXPERIENCE_LEVELS = [
 export const GYM_TYPES = [
   { id: "warehouse", label: "Warehouse / Strength Gym" },
   { id: "commercial", label: "Commercial Gym" },
+  { id: "office_gym", label: "Commercial gym (9–5 office schedule)" },
   { id: "home", label: "Home Gym" },
 ] as const;
 

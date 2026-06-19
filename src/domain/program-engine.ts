@@ -56,6 +56,7 @@ export function selectTemplate(answers: IntakeAnswers): ProgramTemplate {
     improve_bench: ["bench_specialization"],
     improve_deadlift: ["deadlift_specialization"],
     powerbuilding: ["powerbuilding_10wk"],
+    office_strength: ["office_strength_4wk", "beginner_linear"],
     general_strength:
       answers.experience === "beginner" || answers.experience === "novice"
         ? ["beginner_linear"]
@@ -178,6 +179,12 @@ export function generateCoachNotes(
 
   if (answers.meetDate) {
     lines.push(`Meet date: ${answers.meetDate} — adjust final week taper accordingly.`);
+  }
+
+  if (answers.goal === "office_strength") {
+    lines.push(
+      "Office / 9–5 athlete: keep sessions 45–60 min; default 3 days/week (AM before work or PM after). Reduce volume if sleep <6h or long commute day."
+    );
   }
 
   if (template.meetDayNotes) lines.push(template.meetDayNotes);

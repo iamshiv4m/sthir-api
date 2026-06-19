@@ -1,0 +1,103 @@
+{
+  "id": "office_strength_4wk",
+  "name": "Office 4-Week Strength Block",
+  "goal": "office_strength",
+  "durationWeeks": 4,
+  "daysPerWeek": 3,
+  "federationTags": ["ipf_pi", "wrpf", "other"],
+  "description": "Efficient 3-day SBD block for 9–5 desk workers — ~45–60 min sessions before or after office.",
+  "nutritionNote": "Desk job: prioritize protein at lunch, walk breaks, and sleep — avoid all-out sessions on heavy meeting days.",
+  "weekTemplate": [
+    {
+      "day": 1,
+      "focus": "Squat + Bench (pre/post work)",
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 72,
+          "rpe": "7",
+          "liftKey": "squat",
+          "notes": "Main lift — keep rest 2–3 min"
+        },
+        {
+          "name": "Bench Press",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 72,
+          "rpe": "7",
+          "liftKey": "bench"
+        },
+        {
+          "name": "Barbell Row",
+          "sets": 2,
+          "reps": "10",
+          "intensityPct": 60,
+          "rpe": "7",
+          "notes": "Posture / upper back for desk work"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "focus": "Deadlift + Press",
+      "exercises": [
+        {
+          "name": "Deadlift",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 72,
+          "rpe": "7",
+          "liftKey": "deadlift"
+        },
+        {
+          "name": "Overhead Press",
+          "sets": 3,
+          "reps": "5",
+          "intensityPct": 68,
+          "rpe": "7"
+        },
+        {
+          "name": "Face Pull",
+          "sets": 2,
+          "reps": "15",
+          "intensityPct": 50,
+          "rpe": "6",
+          "notes": "Shoulder health — desk posture"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "focus": "Full SBD (lighter)",
+      "exercises": [
+        {
+          "name": "Squat",
+          "sets": 2,
+          "reps": "5",
+          "intensityPct": 68,
+          "rpe": "6",
+          "liftKey": "squat"
+        },
+        {
+          "name": "Bench Press",
+          "sets": 2,
+          "reps": "5",
+          "intensityPct": 68,
+          "rpe": "6",
+          "liftKey": "bench"
+        },
+        {
+          "name": "Deadlift",
+          "sets": 2,
+          "reps": "5",
+          "intensityPct": 68,
+          "rpe": "6",
+          "liftKey": "deadlift"
+        }
+      ]
+    }
+  ],
+  "deloadWeek": 4
+}
