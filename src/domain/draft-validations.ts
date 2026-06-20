@@ -32,7 +32,7 @@ const draftAnswersSchema = z
 export const intakeDraftSchema = z
   .object({
     sessionId: z.string().uuid(),
-    stepReached: z.number().int().min(0).max(5),
+    stepReached: z.number().int().min(0).max(7),
     stepName: z.string().min(1).max(40),
     answers: draftAnswersSchema,
     utm: z
