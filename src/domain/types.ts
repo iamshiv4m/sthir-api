@@ -46,10 +46,15 @@ export type IntakeAnswers = {
   equipment: Record<string, boolean>;
   injuries: string[];
   injuryNotes?: string;
+  cycleNotes?: string;
   sleepQuality: number;
   recoveryNotes?: string;
+  proteinIntakeG?: number;
   disclaimerAccepted: boolean;
   referralCode?: string;
+  videoSquat?: string;
+  videoBench?: string;
+  videoDeadlift?: string;
 };
 
 export type ProgramBlock = {

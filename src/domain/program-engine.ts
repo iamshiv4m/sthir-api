@@ -177,6 +177,10 @@ export function generateCoachNotes(
     if (answers.injuryNotes) lines.push(answers.injuryNotes);
   }
 
+  if (answers.gender === "female" && answers.cycleNotes) {
+    lines.push(`Cycle considerations: ${answers.cycleNotes}`);
+  }
+
   if (answers.meetDate) {
     lines.push(`Meet date: ${answers.meetDate} — adjust final week taper accordingly.`);
   }
@@ -186,6 +190,18 @@ export function generateCoachNotes(
       "Office / 9–5 athlete: keep sessions 45–60 min; default 3 days/week (AM before work or PM after). Reduce volume if sleep <6h or long commute day."
     );
   }
+
+  if (answers.proteinIntakeG) {
+    const perKg = (answers.proteinIntakeG / answers.bodyweightKg).toFixed(1);
+    lines.push(`Protein: ~${answers.proteinIntakeG}g/day (${perKg}g/kg)`);
+  }
+
+  const videos = [
+    answers.videoSquat && "Squat",
+    answers.videoBench && "Bench",
+    answers.videoDeadlift && "Deadlift",
+  ].filter(Boolean);
+  if (videos.length) lines.push(`Videos uploaded: ${videos.join(", ")}`);
 
   if (template.meetDayNotes) lines.push(template.meetDayNotes);
   if (template.nutritionNote) lines.push(template.nutritionNote);

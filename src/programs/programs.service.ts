@@ -62,6 +62,8 @@ export class ProgramsService {
     }
   }
 
+  private static readonly VALID_REVIEWERS = ['manthan', 'dharmesh', 'founder'];
+
   async reviewProgram(
     intakeId: string,
     body: {
@@ -71,6 +73,9 @@ export class ProgramsService {
     },
   ) {
     const { action, coachNotes, reviewerId = 'founder' } = body;
+    if (!ProgramsService.VALID_REVIEWERS.includes(reviewerId)) {
+      throw new BadRequestException('Invalid reviewerId');
+    }
     const db = await this.db.readDb();
     const intake = db.intakes.find((i) => i.id === intakeId);
     if (!intake) throw new NotFoundException('Intake not found');
@@ -146,9 +151,15 @@ export class ProgramsService {
       .map((intake) => {
         const program = db.programs.find((p) => p.intakeId === intake.id);
         const slaMs = new Date(intake.slaDeadline).getTime() - now;
+        const { videoSquat, videoBench, videoDeadlift } = intake.answers;
         return {
           ...intake,
           program,
+          videos: {
+            squat: videoSquat ?? null,
+            bench: videoBench ?? null,
+            deadlift: videoDeadlift ?? null,
+          },
           slaHoursRemaining: Math.max(0, slaMs / (1000 * 60 * 60)),
           urgent: slaMs < 4 * 60 * 60 * 1000,
         };

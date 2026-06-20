@@ -55,10 +55,15 @@ export const intakeSchema = z.object({
   equipment: z.record(z.string(), z.boolean()).default({}),
   injuries: z.array(z.string()).default([]),
   injuryNotes: z.string().optional(),
+  cycleNotes: z.string().optional(),
   sleepQuality: z.coerce.number().min(1).max(5),
   recoveryNotes: z.string().optional(),
+  proteinIntakeG: z.coerce.number().min(0).max(500).optional(),
   disclaimerAccepted: z.literal(true),
   referralCode: z.string().optional(),
+  videoSquat: z.string().url().optional(),
+  videoBench: z.string().url().optional(),
+  videoDeadlift: z.string().url().optional(),
 });
 
 export type IntakeFormData = z.infer<typeof intakeSchema>;
