@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { promises as fs } from 'fs';
 import path from 'path';
@@ -81,7 +81,15 @@ export class ProgramsService {
     let result: Record<string, unknown> = {};
 
     if (action === 'approve') {
-      if (coachNotes) program.coachNotes = coachNotes;
+      if (!['paid', 'pending_review'].includes(intake.status)) {
+        throw new BadRequestException(
+          'Intake must be pending review before approval',
+        );
+      }
+      if (!program.draftSummary && program.coachNotes) {
+        program.draftSummary = program.coachNotes;
+      }
+      program.coachNotes = coachNotes ?? '';
       program.reviewerId = reviewerId;
       program.reviewedAt = new Date().toISOString();
       intake.status = 'approved';
@@ -90,6 +98,12 @@ export class ProgramsService {
     }
 
     if (action === 'deliver') {
+      if (intake.status !== 'approved') {
+        throw new BadRequestException(
+          'Intake must be approved before delivery',
+        );
+      }
+      program.coachNotes = coachNotes ?? program.coachNotes;
       const { filepath, content } = await exportProgramCsv(
         program,
         intake.answers,
@@ -110,6 +124,9 @@ export class ProgramsService {
     }
 
     if (action === 'reject') {
+      if (['delivered', 'rejected', 'refunded'].includes(intake.status)) {
+        throw new BadRequestException('Intake cannot be rejected in current status');
+      }
       intake.status = 'rejected';
       intake.updatedAt = new Date().toISOString();
       result = { status: 'rejected' };

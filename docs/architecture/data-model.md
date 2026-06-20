@@ -76,7 +76,8 @@ Generated training programs linked 1:1 to intakes.
 | id | UUID | |
 | intakeId | UUID | FK to intakes |
 | templateId, templateName | string | |
-| coachNotes | string | Editable by reviewer |
+| coachNotes | string | Written by reviewer — exported to athlete |
+| draftSummary | string? | Auto-generated intake context (admin reference only) |
 | blocks | ProgramBlock[] | Week/day/exercise rows |
 | sheetUrl, pdfPath | string? | Set on delivery |
 | version | number | Increment on regeneration |

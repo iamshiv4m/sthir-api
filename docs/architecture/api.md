@@ -102,8 +102,8 @@ Program review actions. **Note:** `:id` is the **intake ID**.
 
 | Action | Effect |
 |--------|--------|
-| `approve` | Updates coach notes, sets program reviewed, intake → `approved` |
-| `deliver` | Generates CSV + PDF, intake → `delivered` |
+| `approve` | Updates coach notes, sets program reviewed, intake → `approved` (requires `pending_review` or `paid`) |
+| `deliver` | Generates CSV + PDF, intake → `delivered` (requires `approved`) |
 | `reject` | intake → `rejected` (manual refund) |
 
 **Response:** `{ status, csvPath?, pdfPath?, sheetUrl? }`

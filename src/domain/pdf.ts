@@ -20,13 +20,21 @@ export async function generateProgramPdf(
     "",
     "COACH NOTES",
     "-----------",
-    program.coachNotes,
+  ];
+
+  if (program.coachNotes.trim()) {
+    lines.push(program.coachNotes);
+  } else {
+    lines.push("(None — add notes in admin before delivery)");
+  }
+
+  lines.push(
     "",
     "TRAINING BLOCK",
     "--------------",
     "Week | Day | Exercise | Sets | Reps | Load | RPE",
     "-----|-----|----------|------|------|------|----",
-  ];
+  );
 
   for (const b of program.blocks.slice(0, 120)) {
     lines.push(

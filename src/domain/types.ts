@@ -69,6 +69,7 @@ export type GeneratedProgram = {
   templateId: string;
   templateName: string;
   coachNotes: string;
+  draftSummary?: string;
   blocks: ProgramBlock[];
   sheetUrl?: string;
   pdfPath?: string;

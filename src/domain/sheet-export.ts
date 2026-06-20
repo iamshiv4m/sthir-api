@@ -19,12 +19,16 @@ export function buildProgramCsvContent(
     `# Athlete: ${answers.name}`,
     `# Template: ${program.templateName}`,
     `# Generated: ${program.createdAt}`,
-    `# Coach Notes:`,
-    ...program.coachNotes.split("\n").map((l) => `# ${l}`),
-    "",
-  ].join("\n");
+  ];
 
-  return meta + header + rows;
+  if (program.coachNotes.trim()) {
+    meta.push(`# Coach Notes:`);
+    meta.push(...program.coachNotes.split("\n").map((l) => `# ${l}`));
+  }
+
+  meta.push("");
+
+  return meta.join("\n") + header + rows;
 }
 
 export async function exportProgramCsv(
